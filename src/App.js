@@ -138,7 +138,7 @@ export default function Resume() {
           desc: '注重 代码质量、可读性、可维护性 与团队协作',
         },
       ],
-      copyright: '© 2024 Zhang Haoran | 持续学习与成长',
+      copyright: `© 2025 ${personalInfo.name_zh} | 持续学习与成长`,
     },
     en: {
       resume: 'Resume',
@@ -263,7 +263,7 @@ export default function Resume() {
           desc: 'Focus on code quality, readability, maintainability and team collaboration',
         },
       ],
-      copyright: '© 2024 Zhang Haoran | Continuous Learning and Growth',
+      copyright: `© 2025 ${personalInfo.name_en} | Continuous Learning and Growth`,
     },
   };
 
@@ -459,12 +459,12 @@ export default function Resume() {
           <div className="space-y-4">
             {t.skillList.map((skill, i) => (
               <div key={i} className="flex gap-4 items-start">
-                <div className="flex-shrink-0 pt-0.5">
+                <div className={`${language === 'zh' ? 'w-24' : 'w-44'} flex-shrink-0 pt-0.5`}>
                   <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1.5 rounded-full text-sm font-semibold min-w-fit">
                     {skill.category}
                   </span>
                 </div>
-                <div className="flex-grow pt-0.5">
+                <div className="flex-1 pt-0.5">
                   <p className="text-slate-700">{skill.desc}</p>
                 </div>
               </div>
