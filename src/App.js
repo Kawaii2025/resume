@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, Github } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Resume() {
   const [language, setLanguage] = useState('zh');
@@ -173,6 +173,19 @@ export default function Resume() {
   const t = content[language];
   const [activeJobId, setActiveJobId] = useState(null);
 
+  // 调试：验证环境变量是否加载
+  React.useEffect(() => {
+    console.log('✅ Personal Info Loaded:', {
+      name_zh: personalInfo.name_zh,
+      name_en: personalInfo.name_en,
+      phone: personalInfo.phone,
+      email: personalInfo.email,
+      city_zh: personalInfo.city_zh,
+      city_en: personalInfo.city_en,
+      github: personalInfo.github,
+    });
+  }, []);
+
   const scrollToJob = (jobId) => {
     setActiveJobId(jobId);
     const element = document.getElementById(`job-${jobId}`);
@@ -215,7 +228,10 @@ export default function Resume() {
         <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
           <div className="mb-6">
             <h1 className="text-4xl font-bold text-slate-800 mb-2">
-              {language === 'zh' ? '张浩然 | Zhang Haoran' : 'Zhang Haoran'}
+              {language === 'zh' 
+                ? `${personalInfo.name_zh} | ${personalInfo.name_en}`
+                : personalInfo.name_en
+              }
             </h1>
             <h2 className="text-xl text-blue-600 font-semibold mb-4">
               {t.resume}
@@ -223,19 +239,19 @@ export default function Resume() {
             <div className="flex flex-wrap gap-4 text-sm text-slate-600">
               <div className="flex items-center gap-2">
                 <Phone size={16} className="text-blue-500" />
-                <span>+86 138-xxxx-xxxx</span>
+                <span>{personalInfo.phone}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="text-blue-500" />
-                <span>haoran.zhang@email.com</span>
+                <span>{personalInfo.email}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={16} className="text-blue-500" />
-                <span>{language === 'zh' ? '广州 / Guangzhou' : 'Guangzhou'}</span>
+                <span>{language === 'zh' ? `${personalInfo.city_zh} / ${personalInfo.city_en}` : personalInfo.city_en}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Github size={16} className="text-blue-500" />
-                <a href="#" className="text-blue-600 hover:underline">GitHub</a>
+                <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">GitHub</a>
               </div>
             </div>
           </div>
